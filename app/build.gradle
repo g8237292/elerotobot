@@ -1,0 +1,80 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.zhongxing.elemerobot"
+        minSdkVersion 19
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+//        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+//    构建变种版本
+    flavorDimensions("feature", "customer")
+    productFlavors {
+//        项目
+        eleme {
+            dimension "feature"
+            resValue "string", "app_name", "EleRobot"
+            applicationIdSuffix ".eleme"
+            buildConfigField "String", "FEATURE", '"BUY"'
+//            buildConfigField "String", "TYPE", '"ELEME"'
+            buildConfigField "String", "APPNAME", '"Eleme"'
+            buildConfigField "String", "PACKAGENAME", '"me.ele"'
+            buildConfigField "String", "FREENAME", '"EleRobot"'
+        }
+//        客户
+        dev {
+            dimension "customer"
+            manifestPlaceholders = [customer_appName: "DEBUG"]
+            buildConfigField "String", "QUEUENAME", '"test"'
+            buildConfigField "String", "QUEUEURL", '"https://sqs.ap-southeast-1.amazonaws.com/814419832314/"'
+        }
+    }
+    // 用于uimocker2-debug.aar
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+        maven {
+//            url 'https://maven.google.com'
+            url "https://jitpack.io"
+        }
+        mavenCentral()
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.shamanland:xdroid-toaster:0.2.4'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.8.5'
+    compile group: 'com.aliyun.mns', name: 'aliyun-sdk-mns', version: '1.1.8.6'
+    compileOnly files('lib/XposedBridgeApi-54.jar')
+    implementation files('libs/amazonsdk-debug.jar')
+    implementation(name:'uimocker2-debug', ext:'aar')
+    implementation files('libs/aws-android-sdk-sqs-2.6.12.jar')
+    implementation files('libs/aws-android-sdk-core-2.6.12.jar')
+    implementation files('libs/robotium-solo-5.6.3.jar')
+}
