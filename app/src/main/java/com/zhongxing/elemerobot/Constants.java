@@ -17,9 +17,9 @@ public  class Constants {
 
     public static final String SELF_FILES_PACKAGE  = "com.zhongxing.elemerobot.eleme";
 
-    public static final String Access_Key_Id =  "AKIA33HZUNX5AQM3TVEJ";
+    public static final String Access_Key_Id =  "AKIA33HZUNX5AQM3TVEE";
 
-    public static final String Access_Key_Secret = "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";
+    public static final String Access_Key_Secret = "INgrcelWJzp7egtAYFCB4xxW0Ta88VIJ17yVS9J2";
 
     public static final String TASK_FILENAME = "task.txt";
     public static String getQueueUrl(){
